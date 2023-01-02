@@ -1,0 +1,50 @@
+class Solution {
+public:
+    bool isOp(string token)
+    {
+        return token=="+"||token=="*"||token=="-"||token=="/";
+    }
+
+    int evalRPN(vector<string>& tokens) {
+        stack<int> ans;
+
+        for(auto token : tokens){
+            if(isOp(token))
+            {
+                int val1 = ans.top();
+                ans.pop();
+                
+                if(token == "+")
+                {
+                    val1+= ans.top();
+                }else
+                if(token == "-")
+                {
+                    val1 = ans.top()- val1;
+                }
+                else
+                
+                if(token == "*")
+                {
+                    val1 = ans.top()* val1;
+                   
+                }else
+                if(token == "/")
+                {
+                    val1 = ans.top()/ val1;
+                    
+                }else
+                {
+                    cout<<"invalid";
+                }
+                 ans.pop();
+                 ans.push(val1);
+            }else
+            {
+                ans.push(stoi(token));
+            }
+        }
+
+        return ans.top();
+    }
+};

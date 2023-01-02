@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<int>> combs(int k, int sum, int i){
+        
+
+        if(sum<0 || k<0 || i<0)
+        {
+            vector<vector<int>> tmp;
+
+            return tmp;
+        }
+
+        if(sum == 0 && k==0)
+        {
+            vector<vector<int>> tmp(1);
+            return tmp;
+        }
+
+        vector<vector<int>> ans;
+        if(sum-i>=0)
+        {
+            vector<vector<int>> ansTmp = combs(k-1, sum-i, i-1);
+            for(int ind=0;ind<ansTmp.size();ind++)
+                ansTmp[ind].push_back(i);
+            for(auto comb: ansTmp)
+                ans.push_back(comb);
+        }
+
+        vector<vector<int>> ansTmp = combs(k,sum,i-1);
+
+        for(auto comb: ansTmp)
+                ans.push_back(comb);
+
+        return ans;
+    }
+    vector<vector<int>> combinationSum3(int k, int sum) {
+
+        return combs(k, sum, 9);            
+
+    }
+};
